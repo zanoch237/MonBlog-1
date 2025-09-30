@@ -24,24 +24,140 @@ function App() {
                       <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </button>
-                  <button className="flex items-center space-x-1 hover:text-gray-900">
-                    <span>Explore</span>
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                  <button className="flex items-center space-x-1 hover:text-gray-900">
-                    <span>Find Talent</span>
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                  <button className="flex items-center space-x-1 hover:text-gray-900">
-                    <span>Get Hired</span>
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </button>
+               <div className="relative group">
+                <button className="flex items-center space-x-1 hover:text-gray-900">
+                  <span>Explore</span>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path 
+                      fillRule="evenodd" 
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 
+                      1 0 111.414 1.414l-4 4a1 1 0 01-1.414 
+                      0l-4-4a1 1 0 010-1.414z" 
+                      clipRule="evenodd" 
+                    />
+                  </svg>
+                </button>
+
+                    {/* Dropdown menu explore */}
+                    <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="py-2">
+                        <button>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 
+                            0 2 2 0 014 0zM14 15a4 4 0 00-8 
+                            0v3h8v-3z" />
+                          </svg>
+                          Following
+                        </div>
+                        </button>
+                        <button>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 
+                            11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Popular
+                        </div>
+                        </button>
+                        <button>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                            <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                          New and Noteworthy
+                        </div>
+                        </button>
+                        <hr className="my-2" />
+                       <button><div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Product Design</div></button>
+                      <button><div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Web Design</div></button>
+                      <button><div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Animation</div></button>
+                      <button><div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Branding</div></button>
+                      </div>
+                    </div>
+                  </div>
+
+                                    <div className="relative group">
+                    <button className="flex items-center space-x-1 hover:text-gray-900">
+                      <span>Find Talent</span>
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                    {/* Dropdown menu for Find Talent */}
+                    <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="py-2">
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                          </svg>
+                          Get Matched Now
+                          <span className="ml-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">NEW</span>
+                        </div>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                          </svg>
+                          Browse Profiles
+                        </div>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                          </svg>
+                          Purchase Services
+                        </div>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                          </svg>
+                          Hire Fractional Talent
+                        </div>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                            <path fillRule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3h4v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                          </svg>
+                          Post a Full-Time Job
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 
+                   <div className="relative group">
+                    <button className="flex items-center space-x-1 hover:text-gray-900">
+                      <span>Get Hired</span>
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                    {/* Dropdown menu for Get Hired */}
+                    <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="py-2">
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Upgrade to 
+                          <span className="ml-1 bg-gray-900 text-white text-xs px-2 py-1 rounded">PRO</span>
+                        </div>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M11 3.055A9.001 9.001 0 1020.945 9H11V3.055z" />
+                            <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                          </svg>
+                          Advertise
+                        </div>
+                        <div className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center">
+                          <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                            <path fillRule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3h4v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm8 5a1 1 0 100-2h-3a1 1 0 100 2h3z" clipRule="evenodd" />
+                          </svg>
+                          Full-Time Jobs
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
                   <span className="hover:text-gray-900 cursor-pointer">Blog</span>
                 </nav>
               </div>
