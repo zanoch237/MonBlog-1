@@ -1,6 +1,10 @@
-import { Heart, Bookmark, Twitter, Facebook, Instagram, Github } from 'lucide-react';
+import React from "react";
+import { Heart, Bookmark, Twitter, Facebook, Instagram, Github, X, MessageCircle, Briefcase, Sparkles  } from 'lucide-react';
 
 function App() {
+    const [isContactModalOpen, setIsContactModalOpen] = React.useState(false);
+    const [isWorkToggleOn, setIsWorkToggleOn] = React.useState(true);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header Navigation */}
@@ -194,7 +198,12 @@ function App() {
               <div className="text-left">
                 <div className="flex items-center space-x-2">
                   <span className="font-semibold text-gray-900">Dorian Zanoch</span>
-                  <span className="text-sm text-green-600 bg-green-50 px-2 py-1 rounded">Available for work</span>
+                  <button 
+                     onClick={() => setIsContactModalOpen(true)}
+                    className="text-sm text-green-600 bg-green-50 px-2 py-1 rounded hover:bg-green-100 transition-colors"
+                  >
+                  Available for work
+                  </button>
                   <span className="text-sm text-gray-500">Following</span>
                 </div>
               </div>
@@ -354,6 +363,141 @@ function App() {
           </div>
         </div>
       </footer>
+
+        {/* Contact Modal */}
+      {isContactModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="https://scontent-los2-1.xx.fbcdn.net/v/t39.30808-1/548338314_806217328539732_3228641699885379937_n.jpg?stp=c0.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeE7cx0wleZWbm31wn0gsiDQOaq1pyvIAQY5qrWnK8gBBi1EAk7nXJIa4LDIzsIvewCSDhfaGAlsOQWXxwShhxaM&_nc_ohc=s351cEhpb-cQ7kNvwF5h2-V&_nc_oc=Adl261woTGFs8JYQIS6ksuBJkLV_5F4zhcT0wYZcpGS3fCGBNbWK9m2updIS89NH6ODYkvKhBwZ1l6-halmaXBY2&_nc_zt=24&_nc_ht=scontent-los2-1.xx&_nc_gid=Qiaj1tnz_f2MAtThU9lzOw&oh=00_AfY4Hvgd890qTNZR_yGOrhqB4Bgfieek5WNkro_mi6R0pg&oe=68E0229F" 
+                  alt="Dorian Zanoch"
+                  className="w-12 h-12 rounded-full"
+                />
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900">Connect with Dorian Zanoch</h2>
+                  <p className="text-sm text-gray-600">Responds within a week</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsContactModalOpen(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              {/* Tabs */}
+              <div className="flex space-x-6 mb-6">
+                <button className="flex items-center space-x-2 text-gray-900 border-b-2 border-gray-900 pb-2">
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="font-medium">Message</span>
+                </button>
+                <button className="flex items-center space-x-2 text-gray-500 pb-2">
+                  <Briefcase className="w-4 h-4" />
+                  <span className="font-medium">Services</span>
+                </button>
+              </div>
+
+              
+              {/* Toggle */}
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-gray-900 font-medium">I'm interested in working with Dorian Zanoch</span>
+                <div className="relative cursor-pointer" onClick={() => setIsWorkToggleOn(!isWorkToggleOn)}>
+                  <input type="checkbox" className="sr-only" checked={isWorkToggleOn} readOnly />
+                  <div className={`w-11 h-6 rounded-full shadow-inner transition-colors ${isWorkToggleOn ? 'bg-pink-500' : 'bg-gray-300'}`}></div>
+                  <div className={`absolute w-4 h-4 bg-white rounded-full shadow top-1 transition-transform ${isWorkToggleOn ? 'right-1' : 'left-1'}`}></div>
+                </div>
+              </div>
+
+              {isWorkToggleOn ? (
+                <>
+                  {/* Project Details */}
+                  <div className="mb-6">
+                    <label className="block text-gray-900 font-medium mb-2">
+                      Project Details <span className="text-red-500">*</span>
+                      <span className="text-sm text-gray-500 font-normal ml-2">Minimum 50 characters</span>
+                    </label>
+                    <p className="text-sm text-gray-500 mb-3">
+                      Describe your project or <span className="text-blue-600 underline cursor-pointer">let AI help you write it</span>
+                    </p>
+                    <div className="relative">
+                      <textarea
+                        placeholder="Include any project details, requirements, or goals..."
+                        className="w-full h-32 p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      />
+                      <button className="absolute bottom-3 right-3 flex items-center space-x-1 text-gray-400 hover:text-gray-600">
+                        <Sparkles className="w-4 h-4" />
+                        <span className="text-sm">Write with AI</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Target Date */}
+                  <div className="mb-6">
+                    <label className="block text-gray-900 font-medium mb-2">
+                      Target Date <span className="text-red-500">*</span>
+                    </label>
+                    <p className="text-sm text-gray-500 mb-3">
+                      Select when you need the project to be completed
+                    </p>
+                    <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                      <option>Please select...</option>
+                      <option>Within the next few days</option>
+                      <option>Within the next few weeks</option>
+                      <option>Within in a month or more</option>
+                      <option>Not sure</option>
+                  
+                    </select>
+                  </div>
+
+                  {/* Project Budget */}
+                  <div className="mb-6">
+                    <label className="block text-gray-900 font-medium mb-2">
+                      Project Budget <span className="text-red-500">*</span>
+                    </label>
+                    <p className="text-sm text-gray-500 mb-3">
+                      Dorian Zanoch's minimum project rate is $100 (USD)
+                    </p>
+                    <div className="relative mb-3">
+                      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                      <input
+                        type="text"
+                        placeholder="Enter amount"
+                        className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      />
+                    </div>
+                    <label className="flex items-center space-x-2 text-sm text-gray-600">
+                      <input type="checkbox" className="rounded" />
+                      <span>Let Dorian Zanoch recommend a budget</span>
+                    </label>
+                  </div>
+                </>
+              ) : (
+                /* Simple Message Mode */
+                <div className="mb-6">
+                  <label className="block text-gray-900 font-medium mb-2">
+                    Message <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    placeholder="Type your message..."
+                    className="w-full h-32 p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  />
+                </div>
+              )}
+
+              {/* Send Button */}
+              <button className="w-full bg-pink-500 text-white py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors">
+                Send Message
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
