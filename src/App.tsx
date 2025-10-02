@@ -1,7 +1,418 @@
 import React from "react";
-import { Heart, Bookmark, Twitter, Facebook, Instagram, Github, X, MessageCircle, Briefcase, Sparkles, Filter, Eye, ThumbsUp } from 'lucide-react';
+import { Heart, Bookmark, Twitter, Facebook, Instagram, Github, X, MessageCircle, Briefcase, Sparkles, Filter, Eye, ThumbsUp, Search } from 'lucide-react';
 
-// Following Page Component
+// Type definitions
+type DesignCard = {
+  id: number;
+  title: string;
+  author: string;
+  likes: number;
+  views: string;
+  image: string;
+  authorAvatar: string;
+  isAd?: boolean;
+  category?: string;
+  description?: string;
+};
+
+type BlogContent = {
+  id: number;
+  title: string;
+  content: string;
+  author: string;
+  category: string;
+  image: string;
+  date: string;
+};
+
+// Données réelles du blog existant
+const realBlogContent: BlogContent[] = [
+  {
+    id: 1,
+    title: "Wild Life Blog Page Website",
+    content: "Découvrez notre site web dédié à la faune sauvage. Explorez les merveilles de la nature à travers nos articles captivants sur les animaux sauvages du monde entier.",
+    author: "Dorian Zanoch",
+    category: "Web Design",
+    image: "https://images.pexels.com/photos/247431/pexels-photo-247431.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    date: "2024-01-15"
+  },
+  {
+    id: 2,
+    title: "Photographie Animaliere",
+    content: "Techniques et conseils pour capturer la beauté de la faune sauvage. Apprenez les secrets des meilleurs photographes animaliers.",
+    author: "Dorian Zanoch",
+    category: "Photographie",
+    image: "https://images-wixmp-530a50041672c69d335ba4cf.wixmp.com/templates/image/51692bcc91f6e7465d588054a5ffbd38baa5d37ba031581ab18642f600b817901664445305754.jpg",
+    date: "2024-01-20"
+  }
+];
+
+// Données complètes pour la recherche - Utilisation des vraies données existantes
+const allDesignData: DesignCard[] = [
+  {
+    id: 1,
+    title: "Smart Finance App - Manage Your Money with Ease Dark mode",
+    author: "Abu Raihan",
+    likes: 22,
+    views: "4.2k",
+    image: "https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=400",
+    authorAvatar: "https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face",
+    category: "Finance",
+    description: "Application moderne de gestion financière avec interface sombre"
+  },
+  {
+    id: 2,
+    title: "Banking App Design",
+    author: "Abu Raihan",
+    likes: 29,
+    views: "3.4k",
+    image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=400",
+    authorAvatar: "https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face",
+    category: "Banking",
+    description: "Design moderne pour application bancaire mobile"
+  },
+  {
+    id: 3,
+    title: "Mobile Banking App",
+    author: "Abu Raihan",
+    likes: 16,
+    views: "3.2k",
+    image: "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-147413.jpeg?auto=compress&cs=tinysrgb&w=400",
+    authorAvatar: "https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face",
+    category: "Mobile",
+    description: "Interface utilisateur pour application bancaire mobile"
+  }
+];
+
+// Composant pour afficher un article en détail
+const ArticleDetailPage = ({ article, onBack }: { article: BlogContent; onBack: () => void }) => {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header avec navigation retour */}
+      <div className="border-b border-gray-200 py-4">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={onBack}
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span>Retour</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Contenu de l'article */}
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        {/* En-tête de l'article */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center space-x-2 mb-4">
+            <span className="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+              {article.category}
+            </span>
+            <span className="text-sm text-gray-500">{article.date}</span>
+          </div>
+          
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {article.title}
+          </h1>
+          
+          <div className="flex items-center justify-center space-x-4 mb-6">
+            <img 
+              src="https://scontent-los2-1.xx.fbcdn.net/v/t39.30808-1/548338314_806217328539732_3228641699885379937_n.jpg?stp=c0.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeE7cx0wleZWbm31wn0gsiDQOaq1pyvIAQY5qrWnK8gBBi1EAk7nXJIa4LDIzsIvewCSDhfaGAlsOQWXxwShhxaM&_nc_ohc=s351cEhpb-cQ7kNvwF5h2-V&_nc_oc=Adl261woTGFs8JYQIS6ksuBJkLV_5F4zhcT0wYZcpGS3fCGBNbWK9m2updIS89NH6ODYkvKhBwZ1l6-halmaXBY2&_nc_zt=24&_nc_ht=scontent-los2-1.xx&_nc_gid=Qiaj1tnz_f2MAtThU9lzOw&oh=00_AfY4Hvgd890qTNZR_yGOrhqB4Bgfieek5WNkro_mi6R0pg&oe=68E0229F" 
+              alt={article.author}
+              className="w-12 h-12 rounded-full"
+            />
+            <div className="text-left">
+              <div className="font-semibold text-gray-900">{article.author}</div>
+              <div className="text-sm text-gray-500">Auteur</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Image principale */}
+        <div className="mb-8">
+          <img
+            src={article.image}
+            alt={article.title}
+            className="w-full h-96 object-cover rounded-lg"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = 'https://via.placeholder.com/800x400';
+            }}
+          />
+        </div>
+
+        {/* Contenu de l'article */}
+        <div className="prose prose-lg max-w-none">
+          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+            {article.content}
+          </p>
+          
+          {/* Contenu étendu basé sur le titre */}
+          {article.title.includes('Wild Life') && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+                Découvrez la Faune Sauvage
+              </h2>
+              <p className="text-gray-700 leading-relaxed">
+                Notre site web est dédié à la préservation et à la célébration de la faune sauvage mondiale. 
+                Nous croyons que chaque espèce a sa place dans l'écosystème global et mérite notre protection.
+              </p>
+              
+              <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">
+                Nos Missions
+              </h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-2">
+                <li>Éducation sur la biodiversité mondiale</li>
+                <li>Sensibilisation aux enjeux de conservation</li>
+                <li>Promotion de la photographie animaliere éthique</li>
+                <li>Soutien aux initiatives de protection</li>
+              </ul>
+              
+              <div className="bg-green-50 p-6 rounded-lg mt-8">
+                <h4 className="text-lg font-semibold text-green-800 mb-2">
+                  Agissons Ensemble
+                </h4>
+                <p className="text-green-700">
+                  Rejoignez notre communauté de passionnés de la nature et participez à la protection 
+                  des espèces menacées. Chaque action compte pour préserver notre planète.
+                </p>
+              </div>
+            </div>
+          )}
+          
+          {article.title.includes('Photographie') && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+                L'Art de la Photographie Animaliere
+              </h2>
+              <p className="text-gray-700 leading-relaxed">
+                La photographie animaliere demande patience, respect et technique. C'est un art qui 
+                nous permet de capturer la beauté éphémère de la nature sauvage.
+              </p>
+              
+              <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">
+                Conseils Essentiels
+              </h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-2">
+                <li>Respectez toujours la distance de sécurité avec les animaux</li>
+                <li>Utilisez des objectifs longue focale pour ne pas déranger</li>
+                <li>Soyez patient - les meilleurs clichés demandent du temps</li>
+                <li>Étudiez le comportement des espèces que vous photographiez</li>
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <button className="flex items-center space-x-2 text-gray-600 hover:text-red-500 transition-colors">
+                <Heart className="w-5 h-5" />
+                <span>J'aime</span>
+              </button>
+              <button className="flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors">
+                <Bookmark className="w-5 h-5" />
+                <span>Sauvegarder</span>
+              </button>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-gray-500">Partager :</span>
+              <button className="text-gray-600 hover:text-blue-500">
+                <Facebook className="w-5 h-5" />
+              </button>
+              <button className="text-gray-600 hover:text-blue-400">
+                <Twitter className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Composant de page des résultats de recherche
+const SearchResultsPage = ({ query, results, onBack, onArticleClick }: { 
+  query: string; 
+  results: (BlogContent | DesignCard)[]; 
+  onBack: () => void;
+  onArticleClick: (article: BlogContent) => void;
+}) => {
+  const blogResults = results.filter(item => 'content' in item) as BlogContent[];
+  const designResults = results.filter(item => 'likes' in item) as DesignCard[];
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header avec navigation retour */}
+      <div className="border-b border-gray-200 py-4">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={onBack}
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span>Retour</span>
+            </button>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Résultats pour "{query}"
+            </h1>
+            <span className="text-gray-500">({results.length} résultats)</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Résultats Blog */}
+        {blogResults.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">
+              Articles de Blog ({blogResults.length})
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {blogResults.map((article) => (
+                <div 
+                  key={article.id} 
+                  className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => onArticleClick(article)}
+                >
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-48 object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = 'https://via.placeholder.com/400x200';
+                    }}
+                  />
+                  <div className="p-4">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                        {article.category}
+                      </span>
+                      <span className="text-xs text-gray-500">{article.date}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                      {article.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-3">
+                      {article.content}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500">Par {article.author}</span>
+                      <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                        Lire plus
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Résultats Design */}
+        {designResults.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">
+              Designs ({designResults.length})
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {designResults.map((design) => (
+                <div key={design.id} className="group cursor-pointer">
+                  <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-[4/3] mb-3">
+                    <img
+                      src={design.image}
+                      alt={design.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'https://via.placeholder.com/400x300';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
+                      <button className="bg-white/90 hover:bg-white p-2 rounded-lg transition-colors">
+                        <Heart className="w-5 h-5 text-gray-700" />
+                      </button>
+                      <button className="bg-white/90 hover:bg-white p-2 rounded-lg transition-colors">
+                        <Bookmark className="w-5 h-5 text-gray-700" />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center space-x-3">
+                      <img
+                        src={design.authorAvatar}
+                        alt={design.author}
+                        className="w-6 h-6 rounded-full"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://via.placeholder.com/24';
+                        }}
+                      />
+                      <span className="text-sm text-gray-700 font-medium">{design.author}</span>
+                    </div>
+                    <div className="flex items-center space-x-3 text-sm text-gray-500">
+                      <div className="flex items-center space-x-1">
+                        <ThumbsUp className="w-4 h-4" />
+                        <span>{design.likes}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Eye className="w-4 h-4" />
+                        <span>{design.views}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-sm text-gray-900 line-clamp-2 group-hover:text-pink-600 transition-colors">
+                    {design.title}
+                  </h3>
+                  {design.category && (
+                    <span className="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                      {design.category}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Aucun résultat */}
+        {results.length === 0 && (
+          <div className="text-center py-16">
+            <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              Aucun résultat trouvé
+            </h2>
+            <p className="text-gray-600 mb-4">
+              Nous n'avons trouvé aucun résultat pour "{query}"
+            </p>
+            <div className="space-y-2 text-sm text-gray-500">
+              <p>Suggestions :</p>
+              <ul className="space-y-1">
+                <li>• Vérifiez l'orthographe de vos mots-clés</li>
+                <li>• Essayez des termes plus généraux</li>
+                <li>• Utilisez moins de mots-clés</li>
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const FollowingPage = () => {
   const designCards = [
     {
@@ -181,20 +592,120 @@ const FollowingPage = () => {
 function App() {
     const [isContactModalOpen, setIsContactModalOpen] = React.useState(false);
     const [isWorkToggleOn, setIsWorkToggleOn] = React.useState(true);
-    const [currentPage, setCurrentPage] = React.useState('home'); // 'home' or 'following'
+    const [currentPage, setCurrentPage] = React.useState('home'); // 'home', 'following', 'search', 'article'
     const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [filteredResults, setFilteredResults] = React.useState<(BlogContent | DesignCard)[]>([]);
+    const [isSearchActive, setIsSearchActive] = React.useState(false);
+    const [showSearchResults, setShowSearchResults] = React.useState(false);
+    const [selectedArticle, setSelectedArticle] = React.useState<BlogContent | null>(null);
+
+    // Fonction de recherche
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
+        
+        if (query.trim() === '') {
+            setFilteredResults([]);
+            setIsSearchActive(false);
+            setShowSearchResults(false);
+            return;
+        }
+
+        setIsSearchActive(true);
+        const lowerQuery = query.toLowerCase();
+        
+        // Recherche dans le contenu du blog
+        const blogResults = realBlogContent.filter(item =>
+            item.title.toLowerCase().includes(lowerQuery) ||
+            item.content.toLowerCase().includes(lowerQuery) ||
+            item.category.toLowerCase().includes(lowerQuery) ||
+            item.author.toLowerCase().includes(lowerQuery)
+        );
+        
+        // Recherche dans les designs
+        const designResults = allDesignData.filter(item =>
+            item.title.toLowerCase().includes(lowerQuery) ||
+            item.author.toLowerCase().includes(lowerQuery) ||
+            (item.category && item.category.toLowerCase().includes(lowerQuery)) ||
+            (item.description && item.description.toLowerCase().includes(lowerQuery))
+        );
+        
+        const combinedResults = [...blogResults, ...designResults];
+        setFilteredResults(combinedResults);
+        setShowSearchResults(true);
+    };
+
+    // Fermer les résultats de recherche
+    const clearSearch = () => {
+        setSearchQuery('');
+        setFilteredResults([]);
+        setIsSearchActive(false);
+        setShowSearchResults(false);
+    };
+
+    // Aller à la page de résultats complète
+    const goToSearchResults = () => {
+        setCurrentPage('search');
+        setShowSearchResults(false);
+        setActiveDropdown(null);
+    };
+
+    // Retourner de la page de recherche
+    const backFromSearch = () => {
+        setCurrentPage('home');
+    };
+
+    // Aller à un article spécifique
+    const goToArticle = (article: BlogContent) => {
+        setSelectedArticle(article);
+        setCurrentPage('article');
+        setShowSearchResults(false);
+        setActiveDropdown(null);
+    };
+
+    // Retourner de la page d'article
+    const backFromArticle = () => {
+        setCurrentPage('home');
+        setSelectedArticle(null);
+    };
 
     // Close dropdown when clicking outside
     React.useEffect(() => {
       const handleClickOutside = () => {
         setActiveDropdown(null);
+        // Fermer aussi les résultats de recherche si on clique à l'extérieur
+        if (showSearchResults) {
+          setShowSearchResults(false);
+        }
       };
 
-      if (activeDropdown) {
+      if (activeDropdown || showSearchResults) {
         document.addEventListener('click', handleClickOutside);
         return () => document.removeEventListener('click', handleClickOutside);
       }
-    }, [activeDropdown]);
+    }, [activeDropdown, showSearchResults]);
+
+  // Render Article detail page if currentPage is 'article'
+  if (currentPage === 'article' && selectedArticle) {
+    return (
+      <ArticleDetailPage 
+        article={selectedArticle} 
+        onBack={backFromArticle} 
+      />
+    );
+  }
+
+  // Render Search results page if currentPage is 'search'
+  if (currentPage === 'search') {
+    return (
+      <SearchResultsPage 
+        query={searchQuery} 
+        results={filteredResults} 
+        onBack={backFromSearch}
+        onArticleClick={goToArticle}
+      />
+    );
+  }
 
   // Render Following page if currentPage is 'following'
   if (currentPage === 'following') {
@@ -211,14 +722,106 @@ function App() {
                 >
                   Blog
                 </button>
-                <div className="hidden md:flex items-center space-x-6">
-                  <div className="relative">
-                    <input 
-                      type="text" 
-                      placeholder="What are you looking for?" 
-                      className="w-80 px-4 py-2 border border-gray-300 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                    />
-                  </div>
+                  <div className="hidden md:flex items-center space-x-6">
+                    <div className="relative">
+                      <input 
+                        type="text" 
+                        placeholder="Que recherchez-vous ?" 
+                        value={searchQuery}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        className="w-80 px-4 py-2 border border-gray-300 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                      />
+                      {isSearchActive && (
+                        <button
+                          onClick={clearSearch}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      )}
+                                    
+                      {/* Résultats de recherche pour Following */}
+                      {showSearchResults && filteredResults.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-y-auto">
+                          <div className="p-4">
+                            <div className="flex items-center justify-between mb-3">
+                              <h3 className="text-sm font-semibold text-gray-900">
+                                Résultats ({filteredResults.length})
+                              </h3>
+                              <button
+                                onClick={clearSearch}
+                                className="text-xs text-gray-500 hover:text-gray-700"
+                              >
+                                Fermer
+                              </button>
+                            </div>
+                                          
+                            <div className="space-y-3">
+                              {filteredResults.slice(0, 5).map((result) => (
+                                <div 
+                                  key={result.id} 
+                                  className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer"
+                                  onClick={() => {
+                                    if ('content' in result) {
+                                      goToArticle(result as BlogContent);
+                                    }
+                                  }}
+                                >
+                                  <img
+                                    src={result.image || 'https://via.placeholder.com/40'}
+                                    alt={result.title}
+                                    className="w-10 h-10 rounded object-cover"
+                                    onError={(e) => {
+                                      const target = e.target as HTMLImageElement;
+                                      target.src = 'https://via.placeholder.com/40';
+                                    }}
+                                  />
+                                  <div className="flex-1 min-w-0">
+                                    <h4 className="text-sm font-medium text-gray-900 truncate">
+                                      {result.title}
+                                    </h4>
+                                    <p className="text-xs text-gray-500">
+                                      Par {result.author}
+                                      {'category' in result && result.category && (
+                                        <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                                          {result.category}
+                                        </span>
+                                      )}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))}
+                                            
+                              {filteredResults.length > 5 && (
+                                <div className="text-center py-2">
+                                  <button 
+                                    onClick={goToSearchResults}
+                                    className="text-sm text-blue-600 hover:text-blue-800"
+                                  >
+                                    Voir tous les résultats ({filteredResults.length})
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                                    
+                      {/* Message aucun résultat pour Following */}
+                      {showSearchResults && filteredResults.length === 0 && searchQuery.trim() !== '' && (
+                        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                          <div className="p-4 text-center">
+                            <Search className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                            <p className="text-sm text-gray-600 mb-1">
+                              Aucun résultat pour "{searchQuery}"
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              Essayez des mots-clés différents ou plus généraux
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   <nav className="flex items-center space-x-6 font-bold text-sm text-gray-600">
                     <div className="relative">
                       <button 
@@ -457,9 +1060,101 @@ function App() {
                 <div className="relative">
                   <input 
                     type="text" 
-                    placeholder="What are you looking for?" 
+                    placeholder="Que recherchez-vous ?" 
+                    value={searchQuery}
+                    onChange={(e) => handleSearch(e.target.value)}
                     className="w-80 px-4 py-2 border border-gray-300 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500"
                   />
+                  {isSearchActive && (
+                    <button
+                      onClick={clearSearch}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                  
+                  {/* Résultats de recherche */}
+                  {showSearchResults && filteredResults.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-y-auto">
+                      <div className="p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-sm font-semibold text-gray-900">
+                            Résultats ({filteredResults.length})
+                          </h3>
+                          <button
+                            onClick={clearSearch}
+                            className="text-xs text-gray-500 hover:text-gray-700"
+                          >
+                            Fermer
+                          </button>
+                        </div>
+                        
+                        <div className="space-y-3">
+                          {filteredResults.slice(0, 5).map((result) => (
+                            <div 
+                              key={result.id} 
+                              className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer"
+                              onClick={() => {
+                                if ('content' in result) {
+                                  goToArticle(result as BlogContent);
+                                }
+                              }}
+                            >
+                              <img
+                                src={result.image || 'https://via.placeholder.com/40'}
+                                alt={result.title}
+                                className="w-10 h-10 rounded object-cover"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.src = 'https://via.placeholder.com/40';
+                                }}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-sm font-medium text-gray-900 truncate">
+                                  {result.title}
+                                </h4>
+                                <p className="text-xs text-gray-500">
+                                  Par {result.author}
+                                  {'category' in result && result.category && (
+                                    <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                                      {result.category}
+                                    </span>
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                          
+                            {filteredResults.length > 5 && (
+                              <div className="text-center py-2">
+                                <button 
+                                  onClick={goToSearchResults}
+                                  className="text-sm text-blue-600 hover:text-blue-800"
+                                >
+                                  Voir tous les résultats ({filteredResults.length})
+                                </button>
+                              </div>
+                            )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Message aucun résultat */}
+                  {showSearchResults && filteredResults.length === 0 && searchQuery.trim() !== '' && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                      <div className="p-4 text-center">
+                        <Search className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                        <p className="text-sm text-gray-600 mb-1">
+                          Aucun résultat pour "{searchQuery}"
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Essayez des mots-clés différents ou plus généraux
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <nav className="flex items-center space-x-6 font-bold  text-sm text-gray-600">
                   <div className="relative">
